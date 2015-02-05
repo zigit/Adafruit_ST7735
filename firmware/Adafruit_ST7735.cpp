@@ -304,7 +304,7 @@ static const uint8_t PROGMEM
     ST7735_NORON  ,    DELAY, //  3: Normal display on, no args, w/delay
       10,                     //     10 ms delay
     ST7735_DISPON ,    DELAY, //  4: Main screen turn on, no args w/delay
-      100 };                  //     100 ms delay
+      100 },                  //     100 ms delay
   Gcmd[] = {                  // Initialization commands for 7735B screens
     19,                       // 18 commands in list:
     ST7735_SWRESET,   DELAY,  //  1: Software reset, no args, w/delay
