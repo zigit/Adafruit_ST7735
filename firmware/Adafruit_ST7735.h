@@ -122,12 +122,11 @@ class Adafruit_ST7735 : public Adafruit_GFX {
 
  public:
 
-// #if defined(SPARK) // hardware spi only
-// #else
-//   Adafruit_ST7735(uint8_t CS, uint8_t RS, uint8_t SID, uint8_t SCLK, uint8_t RST);
-// #endif
-  Adafruit_ST7735(uint8_t CS, uint8_t RS, uint8_t RST);
+#if defined(SPARK) // hardware spi only
+#else
   Adafruit_ST7735(uint8_t CS, uint8_t RS, uint8_t SID, uint8_t SCLK, uint8_t RST);
+#endif
+  Adafruit_ST7735(uint8_t CS, uint8_t RS, uint8_t RST);
 
   void     initB(void),                             // for ST7735B displays
            initR(uint8_t options = INITR_GREENTAB), // for ST7735R

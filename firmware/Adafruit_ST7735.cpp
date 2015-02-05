@@ -34,7 +34,7 @@ inline uint16_t swapcolor(uint16_t x) {
 }
 
 
-// #if !defined(SPARK)
+#if !defined(SPARK)
 // Constructor when using software SPI.  All output pins are configurable.
 Adafruit_ST7735::Adafruit_ST7735(uint8_t cs, uint8_t rs, uint8_t sid,
  uint8_t sclk, uint8_t rst) : Adafruit_GFX(ST7735_TFTWIDTH, ST7735_TFTHEIGHT)
@@ -46,7 +46,7 @@ Adafruit_ST7735::Adafruit_ST7735(uint8_t cs, uint8_t rs, uint8_t sid,
   _rst  = rst;
   hwSPI = false;
 }
-// #endif
+#endif
 
 // Constructor when using hardware SPI.  Faster, but must use SPI pins
 // specific to each board type (e.g. 11,13 for Uno, 51,52 for Mega, etc.)
