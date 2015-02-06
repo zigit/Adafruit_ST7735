@@ -6,9 +6,10 @@ Adafruit_ST7735 tft = Adafruit_ST7735(cs, dc, rst); // hardware spi
 
 void setup() {
     
-     tft.initR(INITR_BLACKTAB);
+    
+	tft.initG();
      
-     tft.fillScreen(ST7735_BLACK);
+	tft.fillScreen(ST7735_BLACK);
 
     tft.setCursor(0, 0);
     tft.setTextColor(ST7735_WHITE);
