@@ -19,7 +19,7 @@ Please read README.pdf for details
 #define CENTURYGOTHIC8
 #define ARIAL8
 #define COMICSANSMS8
-//#define TESTFONT
+#define HERO10
 
 // Font selection descriptors - Add an entry for each new font and number sequentially
 #define TIMESNR_8	0
@@ -27,7 +27,7 @@ Please read README.pdf for details
 #define ARIAL_8		2
 #define COMICS_8	3
 #define GLCDFONT	4
-#define TEST		5
+#define HERO_10		5
 
 #define FONT_START 0
 #define FONT_END 1
@@ -63,9 +63,9 @@ extern const FontDescriptor comicSansMS_8ptDescriptors[];
 extern const uint8_t glcdfontBitmaps[];
 extern const FontDescriptor glcdfontDescriptors[];
 
-#ifdef TESTFONT
-extern const uint8_t testBitmaps[];
-extern const FontDescriptor testDescriptors[];
+#ifdef HERO10
+extern const uint8_t hero_10ptBitmaps[];
+extern const FontDescriptor hero_10ptDescriptors[];
 #endif
 
 

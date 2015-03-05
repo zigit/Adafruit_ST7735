@@ -96,10 +96,10 @@ void Adafruit_GFX::setFont(uint8_t f) {
       fontKern = 1;
       break;
 #endif
-#ifdef TESTFONT
-   case TEST:
+#ifdef HERO10
+   case HERO_10:
       fontData = testBitmaps;
-	  fontDesc = testDescriptors;
+      fontDesc = testDescriptors;
       fontKern = 1;
       break;
 #endif
