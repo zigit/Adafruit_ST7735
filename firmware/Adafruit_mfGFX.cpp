@@ -38,6 +38,8 @@ POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include "Adafruit_mfGFX.h"
+#include "../fonts.h"
+
 
 #define pgm_read_byte(addr) (*(const uint8_t *)(addr))
 
