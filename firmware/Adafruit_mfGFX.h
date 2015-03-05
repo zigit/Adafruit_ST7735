@@ -4,6 +4,14 @@
 #include "application.h"
 
 
+struct FontDescriptor
+{
+  uint8_t width;    // width in bits
+  uint8_t height;   // char height in bits
+  uint16_t offset;  // offset of char into char array
+};
+
+
 #define swap(a, b) { int16_t t = a; a = b; b = t; }
 
 class Adafruit_GFX : public Print {
