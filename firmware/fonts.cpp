@@ -1348,7 +1348,6 @@ const FontDescriptor glcdfontDescriptors[] =
 #ifdef HERO10
 // 
 //  Font data for Hero 10pt
-// 
 const uint8_t hero_10ptBitmaps[] = 
 {
 	0x00, 0xFF,		// Start Character, End Character
