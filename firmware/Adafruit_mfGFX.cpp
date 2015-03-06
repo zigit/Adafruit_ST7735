@@ -467,6 +467,9 @@ void Adafruit_GFX::drawChar(int16_t x, int16_t y, unsigned char c,
     c -= fontStart;
   }
  
+int pX      = 0;
+int pY      = y;
+
   if((x >= _width)            || // Clip right
      (y >= _height)           || // Clip bottom
      ((x + (fontDesc[c].width * size) - 1) < 0) || // Clip left
@@ -482,22 +485,48 @@ void Adafruit_GFX::drawChar(int16_t x, int16_t y, unsigned char c,
       if (bitCount++%8 == 0) {
         line = pgm_read_byte(fontData+fontIndex++);
       }
-      if (line & 0x80) {
-        if (size == 1) {// default sizeFast
-          drawPixel(x+j, y+i, color);
-          }
-        else {  // big size
-          fillRect(x+(j*size), y+(i*size), size, size, color);
-        } 
-      } else if (bg != color) {
-        if (size == 1) // default size
-          drawPixel(x+j, y+i, bg);
-        else {  // big size
-          fillRect(x+j*size, y+i*size, size, size, bg);
+      if (size == 1) {// default sizeFast
+        // drawPixel(x+j, y+i, color);
+          pX = x + j;
+
+          if(line & 0x80) drawPixel(pX, pY, color);
+          if(line & 0x40) drawPixel(pX + 1, pY, color);
+          if(line & 0x20) drawPixel(pX + 2, pY, color);
+          if(line & 0x10) drawPixel(pX + 3, pY, color);
+          if(line & 0x8) drawPixel(pX + 4, pY, color);
+          if(line & 0x4) drawPixel(pX + 5, pY, color);
+          if(line & 0x2) drawPixel(pX + 6, pY, color);
+          if(line & 0x1) drawPixel(pX + 7, pY, color);
         }
-      }
+      else {  // big size
+        // fillRect(x+(j*size), y+(i*size), size, size, color);
+
+          pX = x + j*size;
+          if(line & 0x80) fillRect(pX, pY, size, size, color);
+          if(line & 0x40) fillRect(pX + size, pY, size, size, color);
+          if(line & 0x20) fillRect(pX + 2 * size, pY, size, size, color);
+          if(line & 0x10) fillRect(pX + 3 * size, pY, size, size, color);
+          if(line & 0x8) fillRect(pX + 4 * size, pY, size, size, color);
+          if(line & 0x4) fillRect(pX + 5 * size, pY, size, size, color);
+          if(line & 0x2) fillRect(pX + 6 * size, pY, size, size, color);
+          if(line & 0x1) fillRect(pX + 7 * size, pY, size, size, color);
+      } 
+
+
+      //  else if (bg != color) {
+      //   if (size == 1) // default size
+      //     drawPixel(x+j, y+i, bg);
+      //   else {  // big size
+      //     fillRect(x+j*size, y+i*size, size, size, bg);
+      //   }
+      // }
+
+
+
       line <<= 1;
     }
+
+    pY+=size;
     bitCount = 0;
   }
 }
