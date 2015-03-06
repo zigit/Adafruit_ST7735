@@ -103,6 +103,13 @@ void Adafruit_GFX::setFont(uint8_t f) {
       fontKern = 1;
       break;
 #endif
+#ifdef HERO16
+   case HERO_16:
+      fontData = hero_16ptBitmaps;
+      fontDesc = hero_16ptDescriptors;
+      fontKern = 1;
+      break;
+#endif
 	default:
       font = GLCDFONT;
       fontData = glcdfontBitmaps;
