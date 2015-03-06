@@ -15,11 +15,12 @@ Please read README.pdf for details
 
 //Font selection for compiling - comment out or uncomment definitions as required
 //NOTE: GLCDFONT is default font and always included
-#define TIMESNEWROMAN8
-#define CENTURYGOTHIC8
+// #define TIMESNEWROMAN8
+// #define CENTURYGOTHIC8
 #define ARIAL8
-#define COMICSANSMS8
-//#define TESTFONT
+// #define COMICSANSMS8
+#define HERO10
+#define HERO16
 
 // Font selection descriptors - Add an entry for each new font and number sequentially
 #define TIMESNR_8	0
@@ -27,7 +28,8 @@ Please read README.pdf for details
 #define ARIAL_8		2
 #define COMICS_8	3
 #define GLCDFONT	4
-#define TEST		5
+#define HERO_10		5
+#define HERO_16		6
 
 #define FONT_START 0
 #define FONT_END 1
@@ -63,9 +65,14 @@ extern const FontDescriptor comicSansMS_8ptDescriptors[];
 extern const uint8_t glcdfontBitmaps[];
 extern const FontDescriptor glcdfontDescriptors[];
 
-#ifdef TESTFONT
-extern const uint8_t testBitmaps[];
-extern const FontDescriptor testDescriptors[];
+#ifdef HERO10
+extern const uint8_t hero_10ptBitmaps[];
+extern const FontDescriptor hero_10ptDescriptors[];
+#endif
+
+#ifdef HERO16
+extern const uint8_t hero_16ptBitmaps[];
+extern const FontDescriptor hero_16ptDescriptors[];
 #endif
 
 
