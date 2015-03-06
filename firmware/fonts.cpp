@@ -1350,7 +1350,7 @@ const FontDescriptor glcdfontDescriptors[] =
 //  Font data for Hero 10pt
 // 
 
-const uint_8 hero_10ptBitmaps[] = 
+const uint8_t hero_10ptBitmaps[] = 
 {
 	0x20, 0x7F,		// Start Character, End Character
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
