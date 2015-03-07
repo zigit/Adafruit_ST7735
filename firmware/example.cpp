@@ -21,10 +21,13 @@ void setup() {
 	tft.setFont(TIMESNR_8);
     tft.print("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur adipiscing ante sed nibh tincidunt feugiat. Maecenas enim massa, fringilla");     
     
-    tft.drawLine(0, 0, tft.width()-1, tft.height()-1, ST7735_YELLOW);
-    tft.drawLine(tft.width()-1, 0, 0, tft.height()-1, ST7735_YELLOW);
+    // tft.setFont(HERO_16);
+    tft.print("Menan Vadivel");     
 
-    tft.drawPixel(0, tft.height()/2, ST7735_GREEN);
+    // tft.drawLine(0, 0, tft.width()-1, tft.height()-1, ST7735_YELLOW);
+    // tft.drawLine(tft.width()-1, 0, 0, tft.height()-1, ST7735_YELLOW);
+
+    // tft.drawPixel(0, tft.height()/2, ST7735_GREEN);
 
 }
 
