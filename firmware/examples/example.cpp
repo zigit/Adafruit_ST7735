@@ -9,28 +9,40 @@ Adafruit_ST7735 tft = Adafruit_ST7735(cs, dc, rst); // hardware spi
 
 void setup() {
     
-    
-	tft.initG();
+    Serial.begin(9600);
+
+    tft.initG();
      
-	tft.fillScreen(ST7735_BLACK);
+    tft.fillScreen(ST7735_BLACK);
 
     tft.setCursor(0, 0);
     tft.setTextColor(ST7735_WHITE);
     tft.setTextWrap(true);
     // tft.setTextSize(3);
-	tft.setFont(TIMESNR_8);
-    tft.print("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur adipiscing ante sed nibh tincidunt feugiat. Maecenas enim massa, fringilla");     
-    
-    // tft.setFont(HERO_16);
-    tft.print("Menan Vadivel");     
+    tft.setCursor(30, 3);
+    tft.setFont(HERO_10);
+    tft.println("OTTAWA");     
 
-    // tft.drawLine(0, 0, tft.width()-1, tft.height()-1, ST7735_YELLOW);
-    // tft.drawLine(tft.width()-1, 0, 0, tft.height()-1, ST7735_YELLOW);
+    tft.setFont(HERO_16);
+    tft.setTextSize(2);
+    tft.setCursor(25, 20);
+    tft.println("-1  C");       
 
-    // tft.drawPixel(0, tft.height()/2, ST7735_GREEN);
+    tft.setTextSize(1);
+    tft.setCursor(35, 60);
+    tft.println("2:35 PM");  
+
+    tft.drawFastHLine(0, 90, tft.width(), ST7735_CYAN);
+
+    tft.setTextWrap(true);
+    tft.setFont(CENTURY_8);
+    tft.setTextSize(1);
+    tft.setCursor(0, tft.height()-65);
+    tft.println("@elonmusk: Some shots of the Gigafactory pilot plant (~20% of full size) under construction... ");  
 
 }
 
 void loop() {
 
 }
+

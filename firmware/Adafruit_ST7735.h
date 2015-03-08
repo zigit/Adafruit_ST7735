@@ -116,7 +116,7 @@ typedef unsigned char prog_uchar;
 #define ST7735_MAGENTA 0xF81F
 #define ST7735_YELLOW  0xFFE0  
 #define ST7735_WHITE   0xFFFF
-
+#define ST7735_GREY    0x39C4
 
 class Adafruit_ST7735 : public Adafruit_GFX {
 

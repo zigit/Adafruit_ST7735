@@ -55,6 +55,14 @@ class Adafruit_GFX : public Print {
     setRotation(uint8_t r),
     setFont(uint8_t f);
 
+
+
+    int drawUnicode(unsigned int uniCode, int x, int y, int size);
+    // int drawNumber(long long_num,int poX, int poY, int size);
+    int drawChar(char c, int x, int y, int size);
+    int drawString(char *string, int poX, int poY, int size);
+
+    
   virtual size_t write(uint8_t);
 
 

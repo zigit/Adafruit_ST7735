@@ -55,7 +55,7 @@ Adafruit_GFX::Adafruit_GFX(int16_t w, int16_t h):
   textcolor = textbgcolor = 0xFFFF;
   wrap      = true;
   // Default to GLCDFONT to be compatible with existing code
-  // setFont(HERO_10);		// May also be set to TIMESNR_8, CENTURY_8, COMICS_8 or TEST (for testing candidate fonts)
+  setFont(GLCDFONT);		// May also be set to TIMESNR_8, CENTURY_8, COMICS_8 or TEST (for testing candidate fonts)
  }
 
 void Adafruit_GFX::setFont(uint8_t f) {
@@ -536,6 +536,192 @@ int pY      = y;
     pY+=size;
     bitCount = 0;
   }
+}
+
+
+/***************************************************************************************
+** Function name:           drawString
+** Descriptions:            draw string
+***************************************************************************************/
+int Adafruit_GFX::drawString(char *string, int poX, int poY, int size)
+{
+    int sumX = 0;
+
+
+    // while(*string)
+    // {
+
+    //   if (string == '\n') {
+    //     poY += size*8;
+    //     poX  = 0;
+    //   } else if (string == '\r') {
+    //     // skip em
+    //   } else {
+    //     int xPlus = drawChar(poX, poY, c, textcolor, textbgcolor, size);
+    //     poX += size*6;
+    //     if (wrap && (poX > (_width - size*6))) {
+    //       poY += size*8;
+    //       poX = 0;
+    //     }
+    //     sumX += xPlus;
+    //   }
+      
+    //   *string++;
+    //   poX += xPlus;                            /* Move cursor right       */
+    // }
+
+    while(*string)
+    {
+        int xPlus = drawChar(*string, cursor_x, cursor_y, size);
+        sumX += xPlus;
+        *string++;
+        poX += xPlus;                            /* Move cursor right       */
+    }
+    return sumX;
+}
+
+/***************************************************************************************
+** Function name:           drawChar
+** Descriptions:            draw char
+***************************************************************************************/
+int Adafruit_GFX::drawChar(char c, int x, int y, int size)
+{
+    return drawUnicode(c, x, y, size);
+}
+
+
+/***************************************************************************************
+** Function name:           drawUnicode
+** Descriptions:            draw a unicode
+***************************************************************************************/
+int Adafruit_GFX::drawUnicode(unsigned int uniCode, int x, int y, int size)
+{
+    
+
+
+  // Serial.print(" = printing: ");
+  // Serial.print(uniCode);
+  // Serial.print("; ");
+  // Serial.print(fontStart);
+  // Serial.print("; ");
+  // Serial.println(fontEnd);
+
+
+  // if (size) uniCode -= 32;
+
+  if (uniCode < fontStart || uniCode > fontEnd) {
+    uniCode = 0;
+  }
+  else {
+    uniCode -= fontStart;
+  }
+
+    
+
+  if((x >= _width)            || // Clip right
+     (y >= _height)           || // Clip bottom
+     ((x + (fontDesc[uniCode].width * size) - 1) < 0) || // Clip left
+     ((y + (fontDesc[uniCode].height * size) - 1) < 0))   // Clip top
+    return 0;
+
+  // uint8_t bitCount=0;
+  uint16_t fontIndex = fontDesc[uniCode].offset + 2; //((fontDesc + c)->offset) + 2;
+  unsigned int width = fontDesc[uniCode].width;
+  signed int height = fontDesc[uniCode].height;
+  // unsigned int flash_address = 0;
+  char gap = 0;
+
+
+
+  int w = (width+7)/8;
+  int pX      = 0;
+  int pY      = y;
+  // int color   = 0;
+  byte line = 0;
+
+
+
+  if (size == 1) {
+    gap = 1;
+  }
+   if (size == 2) {
+     gap = 1;
+   }
+  if (size == 3) {
+    gap = 0;
+  }
+   if (size == 4) {
+     gap = -3;
+   }
+  if (size == 5) {
+    gap = -3;
+  }
+   if (size == 6) {
+     gap = -3;
+   }
+   if (size == 7) {
+     gap = 2;
+   }
+
+
+  // fillRect(x,pY,width+gap,height,textbgcolor);
+
+  // Serial.print("width : ");
+  // Serial.println(width);
+  for(int i=0; i<height; i++)
+  {
+    if (textcolor != textbgcolor) {
+      if (textsize == 1)
+        drawFastHLine(x, pY, width+gap, textbgcolor);
+      else
+        fillRect(x, pY, (width+gap)*textsize, textsize, textbgcolor);
+    }
+
+    for (int k = 0;k < w; k++)
+    { 
+      // line = pgm_read_byte(fontIndex+w*i+k);
+
+      line = pgm_read_byte(fontData+fontIndex++);
+
+      if(line) {
+
+        if (textsize==1){
+          pX = x + k*8;
+
+          // Serial.println(textcolor);
+
+          if(line & 0x80) drawPixel(pX, pY, textcolor);
+          if(line & 0x40) drawPixel(pX+1, pY, textcolor);
+          if(line & 0x20) drawPixel(pX+2, pY, textcolor);
+          if(line & 0x10) drawPixel(pX+3, pY, textcolor);
+          if(line & 0x8) drawPixel(pX+4, pY, textcolor);
+          if(line & 0x4) drawPixel(pX+5, pY, textcolor);
+          if(line & 0x2) drawPixel(pX+6, pY, textcolor);
+          if(line & 0x1) drawPixel(pX+7, pY, textcolor);
+        }
+         else {
+          pX = x + k*8*textsize;
+          if(line & 0x80) fillRect(pX, pY, textsize, textsize, textcolor);
+          if(line & 0x40) fillRect(pX+textsize, pY, textsize, textsize, textcolor);
+          if(line & 0x20) fillRect(pX+2*textsize, pY, textsize, textsize, textcolor);
+          if(line & 0x10) fillRect(pX+3*textsize, pY, textsize, textsize, textcolor);
+          if(line & 0x8) fillRect(pX+4*textsize, pY, textsize, textsize, textcolor);
+          if(line & 0x4) fillRect(pX+5*textsize, pY, textsize, textsize, textcolor);
+          if(line & 0x2) fillRect(pX+6*textsize, pY, textsize, textsize, textcolor);
+          if(line & 0x1) fillRect(pX+7*textsize, pY, textsize, textsize, textcolor);
+        }
+      }
+      else{
+        // Serial.println("line turned out to be null");
+      }
+
+      line <<= 1;
+    }
+    pY+=textsize;
+  }
+
+  // Serial.print("======--=========");
+  return (width+gap)*textsize;        // x +
 }
 
 void Adafruit_GFX::setCursor(int16_t x, int16_t y) {
