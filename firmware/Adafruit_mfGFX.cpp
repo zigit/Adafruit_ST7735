@@ -543,7 +543,7 @@ int pY      = y;
 ** Function name:           drawString
 ** Descriptions:            draw string
 ***************************************************************************************/
-int Adafruit_GFX::drawString(char *string, int poX, int poY, int size)
+int Adafruit_GFX::drawString(char *string, int poX, int poY)
 {
     int sumX = 0;
 
@@ -572,7 +572,7 @@ int Adafruit_GFX::drawString(char *string, int poX, int poY, int size)
 
     while(*string)
     {
-        int xPlus = drawChar(*string, cursor_x, cursor_y, size);
+        int xPlus = drawChar(*string, cursor_x, cursor_y);
         sumX += xPlus;
         *string++;
         poX += xPlus;                            /* Move cursor right       */
@@ -580,13 +580,51 @@ int Adafruit_GFX::drawString(char *string, int poX, int poY, int size)
     return sumX;
 }
 
+
+/***************************************************************************************
+** Function name:           drawCentreString
+** Descriptions:            draw string across centre
+***************************************************************************************/
+int Adafruit_GFX::drawCentreString(char *string, int dX, int poY)
+{
+    int sumX = 0;
+    int len = 0;
+    char *pointer = string;
+    char ascii;
+
+    while(*pointer)
+    {
+        ascii = *pointer;
+        len += fontDesc[ascii-fontStart].width;
+        *pointer++;
+    }
+
+    len = len*textsize;
+    int poX = dX - len/2;
+
+    if (poX < 0) poX = 0;
+
+    while(*string)
+    {
+        
+        int xPlus = drawChar(*string, poX, poY);
+        sumX += xPlus;
+        *string++;
+        poX += xPlus;                  /* Move cursor right            */
+    }
+    
+    return sumX;
+}
+
+
+
 /***************************************************************************************
 ** Function name:           drawChar
 ** Descriptions:            draw char
 ***************************************************************************************/
-int Adafruit_GFX::drawChar(char c, int x, int y, int size)
+int Adafruit_GFX::drawChar(char c, int x, int y)
 {
-    return drawUnicode(c, x, y, size);
+    return drawUnicode(c, x, y);
 }
 
 
@@ -594,7 +632,7 @@ int Adafruit_GFX::drawChar(char c, int x, int y, int size)
 ** Function name:           drawUnicode
 ** Descriptions:            draw a unicode
 ***************************************************************************************/
-int Adafruit_GFX::drawUnicode(unsigned int uniCode, int x, int y, int size)
+int Adafruit_GFX::drawUnicode(unsigned int uniCode, int x, int y)
 {
     
 
@@ -620,8 +658,8 @@ int Adafruit_GFX::drawUnicode(unsigned int uniCode, int x, int y, int size)
 
   if((x >= _width)            || // Clip right
      (y >= _height)           || // Clip bottom
-     ((x + (fontDesc[uniCode].width * size) - 1) < 0) || // Clip left
-     ((y + (fontDesc[uniCode].height * size) - 1) < 0))   // Clip top
+     ((x + (fontDesc[uniCode].width * textsize) - 1) < 0) || // Clip left
+     ((y + (fontDesc[uniCode].height * textsize) - 1) < 0))   // Clip top
     return 0;
 
   // uint8_t bitCount=0;
@@ -641,25 +679,25 @@ int Adafruit_GFX::drawUnicode(unsigned int uniCode, int x, int y, int size)
 
 
 
-  if (size == 1) {
+  if (textsize == 1) {
     gap = 1;
   }
-   if (size == 2) {
+   if (textsize == 2) {
      gap = 1;
    }
-  if (size == 3) {
+  if (textsize == 3) {
     gap = 0;
   }
-   if (size == 4) {
+   if (textsize == 4) {
      gap = -3;
    }
-  if (size == 5) {
+  if (textsize == 5) {
     gap = -3;
   }
-   if (size == 6) {
+   if (textsize == 6) {
      gap = -3;
    }
-   if (size == 7) {
+   if (textsize == 7) {
      gap = 2;
    }
 

@@ -57,10 +57,11 @@ class Adafruit_GFX : public Print {
 
 
 
-    int drawUnicode(unsigned int uniCode, int x, int y, int size);
-    // int drawNumber(long long_num,int poX, int poY, int size);
-    int drawChar(char c, int x, int y, int size);
-    int drawString(char *string, int poX, int poY, int size);
+    int drawUnicode(unsigned int uniCode, int x, int y);
+    // int drawNumber(long long_num,int poX, int poY);
+    int drawCentreString(char *string, int dX, int poY);
+    int drawChar(char c, int x, int y);
+    int drawString(char *string, int poX, int poY);
 
     
   virtual size_t write(uint8_t);
