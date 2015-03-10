@@ -58,8 +58,9 @@ class Adafruit_GFX : public Print {
 
 
     int drawUnicode(unsigned int uniCode, int x, int y);
-    // int drawNumber(long long_num,int poX, int poY);
-    int drawCentreString(char *string, int dX, int poY);
+    int drawNumber(long long_num,int poX, int poY);
+    int drawCentreString(char *string, int poY);
+    int drawRightString(char *string, int poY);
     int drawChar(char c, int x, int y);
     int drawString(char *string, int poX, int poY);
 

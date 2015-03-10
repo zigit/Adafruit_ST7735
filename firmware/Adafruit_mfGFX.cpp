@@ -449,7 +449,7 @@ size_t Adafruit_GFX::write(uint8_t c) {
       fillRect(cursor_x+w*textsize,cursor_y,fontKern*textsize,h*textsize,textbgcolor);
     }
     cursor_x += textsize*(w+fontKern);
-    if (wrap && (cursor_x > (_width - textsize*w))) {
+    if (wrap && (cursor_x > (_width - textsize*w - 2))) {
       cursor_y += textsize*h;
       cursor_x = 0;
     }
@@ -546,33 +546,9 @@ int pY      = y;
 int Adafruit_GFX::drawString(char *string, int poX, int poY)
 {
     int sumX = 0;
-
-
-    // while(*string)
-    // {
-
-    //   if (string == '\n') {
-    //     poY += size*8;
-    //     poX  = 0;
-    //   } else if (string == '\r') {
-    //     // skip em
-    //   } else {
-    //     int xPlus = drawChar(poX, poY, c, textcolor, textbgcolor, size);
-    //     poX += size*6;
-    //     if (wrap && (poX > (_width - size*6))) {
-    //       poY += size*8;
-    //       poX = 0;
-    //     }
-    //     sumX += xPlus;
-    //   }
-      
-    //   *string++;
-    //   poX += xPlus;                            /* Move cursor right       */
-    // }
-
     while(*string)
     {
-        int xPlus = drawChar(*string, cursor_x, cursor_y);
+        int xPlus = drawChar(*string, poX, poY);
         sumX += xPlus;
         *string++;
         poX += xPlus;                            /* Move cursor right       */
@@ -585,22 +561,30 @@ int Adafruit_GFX::drawString(char *string, int poX, int poY)
 ** Function name:           drawCentreString
 ** Descriptions:            draw string across centre
 ***************************************************************************************/
-int Adafruit_GFX::drawCentreString(char *string, int dX, int poY)
+int Adafruit_GFX::drawCentreString(char *string, int poY)
 {
     int sumX = 0;
     int len = 0;
     char *pointer = string;
     char ascii;
 
+
+
     while(*pointer)
     {
         ascii = *pointer;
-        len += fontDesc[ascii-fontStart].width;
+
+        if (ascii < fontStart || ascii > fontEnd) {
+          len += fontDesc[ascii].width;
+        }
+        else {
+          len += fontDesc[ascii-fontStart].width;
+        }          
         *pointer++;
     }
 
     len = len*textsize;
-    int poX = dX - len/2;
+    int poX = (_width - len)/2;
 
     if (poX < 0) poX = 0;
 
@@ -615,6 +599,45 @@ int Adafruit_GFX::drawCentreString(char *string, int dX, int poY)
     
     return sumX;
 }
+
+
+/***************************************************************************************
+** Function name:           drawRightString
+** Descriptions:            draw string right justified
+***************************************************************************************/
+int Adafruit_GFX::drawRightString(char *string, int poY)
+{
+    int sumX = 0;
+    int len = 0;
+    char *pointer = string;
+    unsigned int ascii;
+
+    while(*pointer)
+    {
+        ascii = *pointer;
+        if (ascii < fontStart || ascii > fontEnd) {
+          len += fontDesc[ascii].width;
+        }
+        else {
+          len += fontDesc[ascii-fontStart].width;
+        }
+        *pointer++;
+    }
+    
+    len = len*textsize;
+    int poX = _width - 8 - len;
+    if (poX < 0) poX = 0;
+    while(*string)
+    {
+        int xPlus = drawChar(*string, poX, poY);
+        sumX += xPlus;
+        *string++;
+        poX += xPlus;          /* Move cursor right            */
+    }
+    
+    return sumX;
+}
+
 
 
 
