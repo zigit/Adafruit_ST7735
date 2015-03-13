@@ -674,7 +674,7 @@ int Adafruit_GFX::drawRightString(char *string, int poY)
     }
     
     len = len*textsize;
-    int poX = _width - 8 - len;
+    int poX = _width - 5 - len;
     if (poX < 0) poX = 0;
     while(*string)
     {
