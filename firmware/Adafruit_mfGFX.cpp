@@ -539,6 +539,30 @@ int pY      = y;
 }
 
 
+// size_t Adafruit_GFX::write(uint8_t c) {
+  
+//   if (c == '\n') {
+//     cursor_y += textsize*fontDesc[0].height;  //all chars are same height so use height of space char
+//     cursor_x  = 0;
+//   } else if (c == '\r') {
+//     // skip em
+//   } else {
+//     drawFastChar(cursor_x, cursor_y, c, textcolor, textbgcolor, textsize);
+//   uint16_t w = fontDesc[c-fontStart].width;
+//   uint16_t h = fontDesc[c-fontStart].height;
+//     if (fontKern > 0 && textcolor != textbgcolor) {
+//       fillRect(cursor_x+w*textsize,cursor_y,fontKern*textsize,h*textsize,textbgcolor);
+//     }
+//     cursor_x += textsize*(w+fontKern);
+//     if (wrap && (cursor_x > (_width - textsize*w - 2))) {
+//       cursor_y += textsize*h;
+//       cursor_x = 0;
+//     }
+//   }
+//   return 1;
+// }
+
+
 /***************************************************************************************
 ** Function name:           drawString
 ** Descriptions:            draw string
@@ -546,14 +570,39 @@ int pY      = y;
 int Adafruit_GFX::drawString(char *string, int poX, int poY)
 {
     int sumX = 0;
+    char ascii;
+    uint16_t w,h;
     while(*string)
     {
-        int xPlus = drawChar(*string, poX, poY);
-        sumX += xPlus;
-        *string++;
-        poX += xPlus;                            /* Move cursor right       */
+
+
+
+      ascii = *string;
+
+      if (ascii < fontStart || ascii > fontEnd) {
+        w = fontDesc[ascii].width;
+        h = fontDesc[ascii].height;
+      }
+      else {
+        w = fontDesc[ascii-fontStart].width;
+        h = fontDesc[ascii-fontStart].height;
+      }       
+
+
+      if (wrap && (poX > (_width - textsize*w - 2))) {
+        poY += textsize*h;
+        poX = 0;
+      }
+
+
+
+
+      int xPlus = drawChar(*string, poX, poY);
+      sumX += xPlus;
+      *string++;
+      poX += xPlus;                            /* Move cursor right       */
     }
-    return sumX;
+    return poY + textsize*h;
 }
 
 
@@ -597,7 +646,7 @@ int Adafruit_GFX::drawCentreString(char *string, int poY)
         poX += xPlus;                  /* Move cursor right            */
     }
     
-    return sumX;
+    return  (_width - len)/2;
 }
 
 
