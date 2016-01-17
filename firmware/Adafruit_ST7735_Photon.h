@@ -163,7 +163,7 @@ class Adafruit_ST7735 : public Adafruit_GFX {
   boolean  hwSPI;
 
 #if defined(SPARK)
-  uint8_t  _cs, _rs, _rst;
+  uint8_t  _cs, _rs, _rst, _sid, _sclk;
   uint8_t  colstart, rowstart; // some displays need this changed
 #endif
 
