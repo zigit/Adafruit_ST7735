@@ -1,7 +1,7 @@
 {
     "name": "Adafruit_ST7735_Photon",
-    "version": "0.0.2",
-    "author": "Someone <menan.vadivel@gmail.com>",
-    "license": "Choose a license",
+    "version": "0.0.1",
+    "author": "Zigit <fredrik.garneij@gmail.com>",
+    "license": "MIT license",
     "description": "Ported Adafruit_ST7735 library"
 }
