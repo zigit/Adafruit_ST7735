@@ -19,7 +19,7 @@
 #ifndef _ADAFRUIT_ST7735H_
 #define _ADAFRUIT_ST7735H_
 
-#define SPARK 1 // !!!!!!!!!!! TEMPORARILY !!!!!!!!!
+#define SPARK  // !!!!!!!!!!! TEMPORARILY !!!!!!!!!
 
 #if ARDUINO >= 100
  #include "Arduino.h"
