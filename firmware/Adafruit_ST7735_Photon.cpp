@@ -19,7 +19,7 @@
 #include "Adafruit_ST7735_Photon.h"
 //#include <limits.h>
 
-#define SPARK 1 // !!!!!!!!!!! TEMPORARILY !!!!!!!!!
+#define SPARK  // !!!!!!!!!!! TEMPORARILY !!!!!!!!!
 
 #if defined(SPARK)
  #define PROGMEM
