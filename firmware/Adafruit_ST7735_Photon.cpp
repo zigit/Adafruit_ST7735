@@ -16,7 +16,7 @@
   MIT license, all text above must be included in any redistribution
  ****************************************************/
 
-#include "Adafruit_ST7735.h"
+#include "Adafruit_ST7735_Photon.h"
 //#include <limits.h>
 
 #define SPARK 1 // !!!!!!!!!!! TEMPORARILY !!!!!!!!!
