@@ -1,11 +1,14 @@
 #define cs   A2
-#define dc   D0
-#define rst  0  
+#define dc   A1
+#define rst  0
+#define sclk A3
+#define mosi A5
 
-#include "Adafruit_ST7735.h"
 
+#include "Adafruit_ST7735_Photon.h"
 
-Adafruit_ST7735 tft = Adafruit_ST7735(cs, dc, rst); // hardware spi
+Adafruit_ST7735 tft = Adafruit_ST7735(cs, dc, mosi,sclk, rst);
+
 
 void setup() {
     
